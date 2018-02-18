@@ -122,7 +122,7 @@ void setup() {
 
   attachInterrupt(1, reed_routine, CHANGE);
 
-//  pinMode(3,INPUT_PULLUP); // define input for reed sensor
+  pinMode(3,INPUT); // define input for reed sensor, PU is external
 
   pinMode(8, OUTPUT); // power for DHT11
 
@@ -174,6 +174,8 @@ void reed_routine()
 //  mrf.send16(GW_ADDRESS,PUBLISH_MSGALR,sizeof(PUBLISH_MSGALR));
 
   delay(1);  
+
+  mrf_sleep();
 }
 
 void loop()
@@ -519,15 +521,24 @@ void mrf_sleep()
 
 void cpu_sleep()
 {
+  uint8_t i;
+  
   Serial.print(millis()); Serial.print(": ");
-  Serial.println("Arduino goes to sleep for 24 s"); 
+  Serial.println("Arduino goes to sleep for 64 s"); 
 
   delay(50);
-  
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);  
 
+    // go to sleep for 64 seconds
+
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+    
   delay(100);  // for any reason...
   
   Serial.print(millis()); Serial.print(": ");
